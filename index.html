@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Morizon Games Studios</title>
+    
+    <!-- FAVICON CORRIGIDO PARA A SUA LOGO -->
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <style>
+        :root {
+            --bg-base: #09090b;
+            --bg-surface: #121216;
+            --text-main: #f4f4f5;
+            --text-muted: #a1a1aa;
+            --accent: #0ea5e9;
+            --accent-hover: #0284c7;
+            --accent-glow: rgba(14, 165, 233, 0.25);
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* HEADER */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background-color: rgba(9, 9, 11, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 1.15rem;
+            letter-spacing: -0.01em;
+        }
+
+        .brand-logo {
+            height: 36px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        /* BOTÃO DA LOJA */
+        .btn-store {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background-color: var(--accent);
+            color: #ffffff;
+            padding: 0.65rem 1.35rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.92rem;
+            box-shadow: 0 4px 14px var(--accent-glow);
+            transition: all 0.2s ease;
+        }
+
+        .btn-store:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px var(--accent-glow);
+        }
+
+        .icon-svg {
+            width: 16px;
+            height: 16px;
+            stroke: currentColor;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* HERO COM VÍDEO DE FUNDO (.mp4) */
+        .hero {
+            position: relative;
+            min-height: 92vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem 2rem;
+            overflow: hidden;
+            background-color: var(--bg-base);
+        }
+
+        .hero-video {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(9, 9, 11, 0.65) 0%, rgba(9, 9, 11, 0.95) 100%);
+            z-index: 2;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 3;
+            max-width: 750px;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background-color: rgba(14, 165, 233, 0.12);
+            color: var(--accent);
+            border: 1px solid rgba(14, 165, 233, 0.3);
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #ffffff;
+            margin-bottom: 1.25rem;
+            line-height: 1.08;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            line-height: 1.5;
+        }
+
+        /* SEÇÃO DE EXPLICAÇÃO / MANIFESTO */
+        .manifesto {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .manifesto-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .manifesto-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .manifesto h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .manifesto-text p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 1.2rem;
+        }
+
+        /* CONTATO SECTION */
+        .contact-section {
+            border-top: 1px solid var(--border-color);
+            background-color: var(--bg-surface);
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .contact-box {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-box h3 {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 0.75rem;
+        }
+
+        .contact-box p {
+            color: var(--text-muted);
+            margin-bottom: 1.75rem;
+        }
+
+        .email-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background-color: var(--bg-base);
+            border: 1px solid var(--border-color);
+            color: #ffffff;
+            padding: 0.85rem 1.75rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .email-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2.5rem 2rem;
+            font-size: 0.875rem;
+            color: #71717a;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="brand">
+                <img src="logo.png" alt="Morizon Games" class="brand-logo" onerror="this.style.display='none';">
+                <span>Morizon Games</span>
+            </a>
+
+            <!-- COLOQUE O LINK DA SUA LOJA NO HREF ABAIXO -->
+            <a href="SEU_LINK_DA_LOJA_AQUI" target="_blank" rel="noopener noreferrer" class="btn-store">
+                <svg class="icon-svg" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                <span>Ir para a Loja Oficial</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO PRINCIPAL COM VÍDEO MP4 -->
+    <main>
+        <section class="hero">
+            <video autoplay muted loop playsinline class="hero-video">
+                <source src="fundo.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content">
+                <span class="hero-tag">Indie Game Studio</span>
+                <h1>Morizon Games Studios</h1>
+                <p>Desenvolvimento independente focado em mecânicas autênticas, jogos marcantes e paixão por criar jogos divertidos.</p>
+                
+                <a href="SEU_LINK_DA_LOJA_AQUI" target="_blank" rel="noopener noreferrer" class="btn-store" style="padding: 0.85rem 2rem; font-size: 1rem;">
+                    <svg class="icon-svg" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+                    <span>Acessar Loja Oficial</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- SEÇÃO DE EXPLICAÇÃO / MANIFESTO -->
+        <section class="manifesto">
+            <div class="manifesto-grid">
+                <div>
+                    <h2>Por que criamos jogos?</h2>
+                </div>
+                <div class="manifesto-text">
+                    <p>A Morizon Games nasceu da vontade de criar jogos divertidos e com histórias interessantes para gamers. Cada jogo traz histórias diferentes.</p>
+                    <p>Queremos que cada jogo traga a sensação de MEDO, para nossos jogos de terror, e AVENTURA, nos nossos jogos de exploração aberta. Tudo o que produzirmos e lançarmos estará reunido diretamente em nossa loja oficial.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTATO -->
+        <section class="contact-section">
+            <div class="contact-box">
+                <h3>Fale com o estúdio</h3>
+                <p>Tem dúvidas, feedback sobre os jogos ou quer falar sobre parcerias e imprensa?</p>
+                
+                <a href="mailto:contatomorizongames@gmail.com" class="email-btn">
+                    <svg class="icon-svg" style="color: var(--accent);" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span>contatomorizongames@gmail.com</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>&copy; <span id="year"></span> Morizon Games Studios. Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
