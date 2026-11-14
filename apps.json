@@ -1,0 +1,162 @@
+[
+  {
+    "id": "morizon-pay",
+    "name": "Morizon Pay",
+    "category": "Finanças",
+    "developer": "Morizon Tech",
+    "rating": 4.8,
+    "downloads": "500 mil+",
+    "size": "24 MB",
+    "version": "2.4.1",
+    "icon": "wallet",
+    "verified": true,
+    "banner": "Carteira digital segura para transferências instantâneas, pagamento de contas e gestão de cartões virtuais com criptografia de ponta.",
+    "description": "O Morizon Pay é a solução completa para o seu dia a dia financeiro. Com ele, você pode realizar Pix instantâneos, pagar contas via código de barras, gerenciar cartões virtuais para compras online com segurança redobrada e acompanhar seu extrato em tempo real através de gráficos limpos e intuitivos.",
+    "screenshots": [
+      "Finanças",
+      "Pix",
+      "Cartões"
+    ],
+    "apkUrl": "#"
+  },
+  {
+    "id": "morizon-notes",
+    "name": "Morizon Notes",
+    "category": "Produtividade",
+    "developer": "Morizon Tech",
+    "rating": 4.9,
+    "downloads": "1 milhão+",
+    "size": "15 MB",
+    "version": "3.1.0",
+    "icon": "note",
+    "verified": true,
+    "banner": "Aplicativo minimalista de notas, listas de tarefas e diário com sincronização em nuvem e suporte a Markdown.",
+    "description": "Organize sua rotina sem distrações. O Morizon Notes oferece um ambiente limpo e rápido para capturar ideias, criar listas de tarefas com lembretes, estruturar documentos em Markdown e proteger suas anotações mais importantes com senha ou biometria.",
+    "screenshots": [
+      "Notas",
+      "Tarefas",
+      "Markdown"
+    ],
+    "apkUrl": "#"
+  },
+  {
+    "id": "morizon-music",
+    "name": "Morizon Music",
+    "category": "Música e Áudio",
+    "developer": "Morizon Audio",
+    "rating": 4.7,
+    "downloads": "250 mil+",
+    "size": "42 MB",
+    "version": "1.8.4",
+    "icon": "music",
+    "verified": true,
+    "banner": "Reprodutor de música local de alta fidelidade com equalizador de 10 bandas e suporte a FLAC.",
+    "description": "Curta sua biblioteca de músicas com qualidade de estúdio. O Morizon Music reproduz todos os formatos populares (MP3, FLAC, AAC, WAV), conta com equalizador avançado, letras sincronizadas em tempo real e uma interface elegante que consome pouca bateria.",
+    "screenshots": [
+      "Player",
+      "Equalizador",
+      "Biblioteca"
+    ],
+    "apkUrl": "#"
+  },
+  {
+    "id": "morizon-weather",
+    "name": "Morizon Weather",
+    "category": "Clima",
+    "developer": "Morizon Tech",
+    "rating": 4.6,
+    "downloads": "800 mil+",
+    "size": "12 MB",
+    "version": "2.0.2",
+    "icon": "weather",
+    "verified": true,
+    "banner": "Previsão do tempo precisa, radares meteorológicos em tempo real e alertas de tempestades.",
+    "description": "Esteja sempre preparado para o clima. O Morizon Weather fornece previsões horárias para até 15 dias, índices de qualidade do ar, radar de chuva interativo e widgets personalizáveis para a tela inicial do seu dispositivo.",
+    "screenshots": [
+      "Previsão",
+      "Radar",
+      "Widgets"
+    ],
+    "apkUrl": "#"
+  },
+  {
+    "id": "morizon-code",
+    "name": "Morizon Code Editor",
+    "category": "Desenvolvedor",
+    "developer": "Morizon Developer Tools",
+    "rating": 4.9,
+    "downloads": "100 mil+",
+    "size": "35 MB",
+    "version": "1.2.0",
+    "icon": "code",
+    "verified": true,
+    "banner": "Editor de código leve com suporte a dezenas de linguagens, autocompletar e integração com Git.",
+    "description": "Desenvolva de qualquer lugar. O Morizon Code Editor suporta JavaScript, Python, HTML/CSS, JSON, Markdown e muito mais. Possui realce de sintaxe personalizável, atalhos de teclado avançados, terminal integrado e conexão direta com repositórios.",
+    "screenshots": [
+      "Editor",
+      "Terminal",
+      "Git"
+    ],
+    "apkUrl": "#"
+  },
+  {
+    "id": "morizon-fit",
+    "name": "Morizon Fit",
+    "category": "Saúde e Bem-estar",
+    "developer": "Morizon Health",
+    "rating": 4.5,
+    "downloads": "300 mil+",
+    "size": "28 MB",
+    "version": "1.5.3",
+    "icon": "heart",
+    "verified": true,
+    "banner": "Monitoramento de passos, treinos guiados e registro de hidratação para uma vida saudável.",
+    "description": "Cuide da sua saúde com treinos personalizados para fazer em casa ou na academia, contador automático de passos através do sensor do aparelho, registro de ingestão de água e relatórios detalhados de evolução física.",
+    "screenshots": [
+      "Treinos",
+      "Passos",
+      "Progresso"
+    ],
+    "apkUrl": "#"
+  },
+  {
+    "id": "morizon-gallery",
+    "name": "Morizon Gallery",
+    "category": "Fotografia",
+    "developer": "Morizon Tech",
+    "rating": 4.8,
+    "downloads": "600 mil+",
+    "size": "18 MB",
+    "version": "2.2.0",
+    "icon": "image",
+    "verified": true,
+    "banner": "Galeria de fotos rápida, privada e sem anúncios, com organização automática por IA local.",
+    "description": "Gerencie suas memórias com total privacidade. O Morizon Gallery organiza suas fotos por álbuns, data e localização, oferece editor básico de imagens, pasta secreta protegida por senha e modo de visualização em tela cheia sem anúncios ou rastreadores.",
+    "screenshots": [
+      "Fotos",
+      "Albuns",
+      "Editor"
+    ],
+    "apkUrl": "#"
+  },
+  {
+    "id": "morizon-files",
+    "name": "Morizon Files",
+    "category": "Ferramentas",
+    "developer": "Morizon Tech",
+    "rating": 4.7,
+    "downloads": "900 mil+",
+    "size": "14 MB",
+    "version": "3.0.1",
+    "icon": "folder",
+    "verified": true,
+    "banner": "Gerenciador de arquivos limpo para explorar armazenamento interno, limpar lixo e compactar ZIP.",
+    "description": "Tenha controle total sobre o armazenamento do seu dispositivo. Encontre arquivos grandes rapidamente, limpe caches desnecessários, descompacte arquivos ZIP/RAR e gerencie documentos na nuvem ou na memória interna com uma interface fluida.",
+    "screenshots": [
+      "Arquivos",
+      "Armazenamento",
+      "Limpeza"
+    ],
+    "apkUrl": "#"
+  }
+]

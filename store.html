@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loja Morizon</title>
+  <style>
+    :root {
+      --bg-primary: #0f1115;
+      --bg-secondary: #181b22;
+      --bg-card: #20242e;
+      --bg-card-hover: #292e3d;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border: #2d3446;
+      --success: #10b981;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background-color: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    .brand-logo svg {
+      width: 20px;
+      height: 20px;
+      fill: #ffffff;
+    }
+
+    .brand-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 500px;
+      margin: 0 24px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      background-color: var(--bg-primary);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 10px 16px 10px 42px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 18px;
+      height: 18px;
+      fill: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .json-upload-btn {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .json-upload-btn:hover {
+      background-color: var(--bg-card-hover);
+    }
+
+    .json-upload-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    #jsonFileInput {
+      display: none;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .categories-bar {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 24px;
+      scrollbar-width: none;
+    }
+
+    .categories-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-chip {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .category-chip:hover, .category-chip.active {
+      background-color: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .app-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s, border-color 0.2s;
+    }
+
+    .app-card:hover {
+      transform: translateY(-2px);
+      background-color: var(--bg-card);
+      border-color: var(--accent);
+    }
+
+    .app-card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .app-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .app-icon svg {
+      width: 28px;
+      height: 28px;
+      fill: var(--accent);
+    }
+
+    .app-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .app-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 2px;
+    }
+
+    .app-developer {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 6px;
+    }
+
+    .app-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .rating-badge {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    .rating-badge svg {
+      width: 12px;
+      height: 12px;
+      fill: #f59e0b;
+    }
+
+    .app-banner {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 16px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .app-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+    }
+
+    .app-size {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .install-btn {
+      background-color: rgba(37, 99, 235, 0.15);
+      color: var(--accent);
+      border: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .install-btn:hover {
+      background-color: var(--accent);
+      color: #ffffff;
+    }
+
+    .install-btn.installed {
+      background-color: rgba(16, 185, 129, 0.15);
+      color: var(--success);
+    }
+
+    /* Modal Detalhes */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s, visibility 0.2s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 24px;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      transform: scale(0.95);
+      transition: transform 0.2s;
+    }
+
+    .modal-overlay.open .modal-content {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--text-main);
+      background-color: var(--bg-card-hover);
+    }
+
+    .modal-close svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .modal-header {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .modal-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .modal-icon svg {
+      width: 40px;
+      height: 40px;
+      fill: var(--accent);
+    }
+
+    .modal-title-area h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .modal-title-area p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .modal-stats {
+      display: flex;
+      gap: 20px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+      margin-bottom: 20px;
+    }
+
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+    }
+
+    .stat-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .modal-description {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .screenshots-scroll {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      margin-bottom: 24px;
+    }
+
+    .screenshot-thumb {
+      width: 160px;
+      height: 100px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-primary {
+      flex: 1;
+      background-color: var(--accent);
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .btn-primary.installed {
+      background-color: var(--success);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background-color: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--success);
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 12px 16px;
+      }
+      .search-container {
+        margin: 0 12px;
+      }
+      main {
+        padding: 16px;
+      }
+      .apps-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand" onclick="resetView()">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm2 2v14h12V5H6zm3 2h6v2H9V7zm0 4h6v2H9v-2zm0 4h4v2H9v-2z"/>
+        </svg>
+      </div>
+      <span class="brand-title">Loja Morizon</span>
+    </div>
+
+    <div class="search-container">
+      <svg class="search-icon" viewBox="0 0 24 24">
+        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+      <input type="text" id="searchInput" class="search-input" placeholder="Buscar aplicativos...">
+    </div>
+
+    <div class="header-actions">
+      <button class="json-upload-btn" onclick="document.getElementById('jsonFileInput').click()">
+        <svg viewBox="0 0 24 24">
+          <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+        </svg>
+        Carregar JSON
+      </button>
+      <input type="file" id="jsonFileInput" accept=".json">
+    </div>
+  </header>
+
+  <main>
+    <div class="categories-bar" id="categoriesBar">
+      <div class="category-chip active" data-category="Todos">Todos</div>
+    </div>
+
+    <div class="section-title" id="sectionTitle">Aplicativos em Destaque</div>
+
+    <div class="apps-grid" id="appsGrid">
+      <!-- Injetado via JS -->
+    </div>
+  </main>
+
+  <!-- Modal Detalhes -->
+  <div class="modal-overlay" id="appModal" onclick="closeModal(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModalDirect()">
+        <svg viewBox="0 0 24 24">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </button>
+      
+      <div class="modal-header">
+        <div class="modal-icon" id="modalIconContainer">
+          <!-- Ícone SVG injetado -->
+        </div>
+        <div class="modal-title-area">
+          <h2 id="modalAppName">Nome do App</h2>
+          <p id="modalAppDeveloper">Desenvolvedor</p>
+          <div class="app-meta-row">
+            <span id="modalAppCategory" style="color: var(--accent);">Categoria</span>
+            <span>•</span>
+            <span id="modalAppSize">0 MB</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-stats">
+        <div class="stat-item">
+          <div class="stat-value">
+            <span id="modalAppRating">4.8</span>
+            <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:#f59e0b;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+          </div>
+          <span class="stat-label">Classificação</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="modalAppDownloads">500 mil+</div>
+          <span class="stat-label">Downloads</span>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="modalAppVersion">1.0.0</div>
+          <span class="stat-label">Versão</span>
+        </div>
+      </div>
+
+      <p class="modal-description" id="modalAppDescription">Descrição detalhada do aplicativo...</p>
+
+      <div class="section-title" style="font-size: 1rem; margin-bottom: 12px;">Prévia</div>
+      <div class="screenshots-scroll" id="modalScreenshots">
+        <!-- Screenshots -->
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-primary" id="modalInstallBtn" onclick="toggleInstallCurrent()">Instalar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <svg viewBox="0 0 24 24">
+      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+    </svg>
+    <span id="toastMsg">Aplicativo instalado com sucesso!</span>
+  </div>
+
+  <script>
+    let appsData = [];
+    let installedApps = JSON.parse(localStorage.getItem('morizon_installed') || '{}');
+    let currentCategory = 'Todos';
+    let currentSearch = '';
+    let selectedAppId = null;
+
+    const ICONS_MAP = {
+      wallet: '<path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>',
+      note: '<path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/>',
+      music: '<path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>',
+      weather: '<path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.39 2.78 2.96 0 1.65-1.35 3-3 3z"/>',
+      code: '<path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>',
+      heart: '<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>',
+      image: '<path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>',
+      folder: '<path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>',
+      default: '<path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm2 2v14h12V5H6z"/>'
+    };
+
+    async function loadApps() {
+      try {
+        const response = await fetch('apps.json');
+        appsData = await response.json();
+        initStore();
+      } catch (err) {
+        console.error('Erro ao carregar apps.json:', err);
+        showToast('Erro ao carregar dados dos aplicativos.');
+      }
+    }
+
+    function initStore() {
+      renderCategories();
+      renderApps();
+    }
+
+    function renderCategories() {
+      const categoriesBar = document.getElementById('categoriesBar');
+      const categories = ['Todos', ...new Set(appsData.map(app => app.category))];
+      
+      categoriesBar.innerHTML = categories.map(cat => `
+        <div class="category-chip ${cat === currentCategory ? 'active' : ''}" onclick="selectCategory('${cat}')">
+          ${cat}
+        </div>
+      `).join('');
+    }
+
+    function selectCategory(cat) {
+      currentCategory = cat;
+      renderCategories();
+      renderApps();
+      document.getElementById('sectionTitle').textContent = cat === 'Todos' ? 'Aplicativos em Destaque' : `Categoria: ${cat}`;
+    }
+
+    function renderApps() {
+      const grid = document.getElementById('appsGrid');
+      
+      let filtered = appsData.filter(app => {
+        const matchesCategory = currentCategory === 'Todos' || app.category === currentCategory;
+        const matchesSearch = app.name.toLowerCase().includes(currentSearch.toLowerCase()) || 
+                              app.description.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                              app.developer.toLowerCase().includes(currentSearch.toLowerCase());
+        return matchesCategory && matchesSearch;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">Nenhum aplicativo encontrado.</div>`;
+        return;
+      }
+
+      grid.innerHTML = filtered.map(app => {
+        const isInstalled = installedApps[app.id];
+        const iconSvg = ICONS_MAP[app.icon] || ICONS_MAP.default;
+
+        return `
+          <div class="app-card" onclick="openModal('${app.id}')">
+            <div>
+              <div class="app-card-header">
+                <div class="app-icon">
+                  <svg viewBox="0 0 24 24">${iconSvg}</svg>
+                </div>
+                <div class="app-info">
+                  <div class="app-name">${app.name}</div>
+                  <div class="app-developer">${app.developer}</div>
+                  <div class="app-meta-row">
+                    <div class="rating-badge">
+                      <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                      ${app.rating}
+                    </div>
+                    <span>•</span>
+                    <span>${app.category}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="app-banner">${app.banner}</div>
+            </div>
+            <div class="app-card-footer">
+              <span class="app-size">${app.size}</span>
+              <button class="install-btn ${isInstalled ? 'installed' : ''}" onclick="event.stopPropagation(); toggleInstall('${app.id}')">
+                ${isInstalled ? 'Instalado' : 'Instalar'}
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      currentSearch = e.target.value.trim();
+      renderApps();
+    });
+
+    function resetView() {
+      currentCategory = 'Todos';
+      currentSearch = '';
+      document.getElementById('searchInput').value = '';
+      renderCategories();
+      renderApps();
+      document.getElementById('sectionTitle').textContent = 'Aplicativos em Destaque';
+    }
+
+    function openModal(appId) {
+      selectedAppId = appId;
+      const app = appsData.find(a => a.id === appId);
+      if (!app) return;
+
+      const iconSvg = ICONS_MAP[app.icon] || ICONS_MAP.default;
+      document.getElementById('modalIconContainer').innerHTML = `<svg viewBox="0 0 24 24">${iconSvg}</svg>`;
+      document.getElementById('modalAppName').textContent = app.name;
+      document.getElementById('modalAppDeveloper').textContent = app.developer;
+      document.getElementById('modalAppCategory').textContent = app.category;
+      document.getElementById('modalAppSize').textContent = app.size;
+      document.getElementById('modalAppRating').textContent = app.rating;
+      document.getElementById('modalAppDownloads').textContent = app.downloads;
+      document.getElementById('modalAppVersion').textContent = app.version;
+      document.getElementById('modalAppDescription').textContent = app.description;
+
+      const screenshotsContainer = document.getElementById('modalScreenshots');
+      screenshotsContainer.innerHTML = app.screenshots.map(s => `
+        <div class="screenshot-thumb">Tela: ${s}</div>
+      `).join('');
+
+      updateModalInstallButton();
+      document.getElementById('appModal').classList.add('open');
+    }
+
+    function closeModal(e) {
+      if (e.target.id === 'appModal') {
+        closeModalDirect();
+      }
+    }
+
+    function closeModalDirect() {
+      document.getElementById('appModal').classList.remove('open');
+      selectedAppId = null;
+    }
+
+    function toggleInstall(appId) {
+      const app = appsData.find(a => a.id === appId);
+      if (!app) return;
+
+      if (installedApps[appId]) {
+        delete installedApps[appId];
+        showToast(`${app.name} desinstalado com sucesso.`);
+      } else {
+        installedApps[appId] = true;
+        showToast(`${app.name} instalado com sucesso!`);
+      }
+
+      localStorage.setItem('morizon_installed', JSON.stringify(installedApps));
+      renderApps();
+      if (selectedAppId === appId) {
+        updateModalInstallButton();
+      }
+    }
+
+    function toggleInstallCurrent() {
+      if (selectedAppId) {
+        toggleInstall(selectedAppId);
+      }
+    }
+
+    function updateModalInstallButton() {
+      const btn = document.getElementById('modalInstallBtn');
+      const isInstalled = installedApps[selectedAppId];
+      if (isInstalled) {
+        btn.textContent = 'Desinstalar';
+        btn.classList.add('installed');
+      } else {
+        btn.textContent = 'Instalar';
+        btn.classList.remove('installed');
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Carregar JSON customizado enviado pelo usuário
+    document.getElementById('jsonFileInput').addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const customData = JSON.parse(e.target.result);
+          if (Array.isArray(customData) && customData.length > 0) {
+            appsData = customData;
+            initStore();
+            showToast('JSON carregado com sucesso!');
+          } else {
+            showToast('O JSON precisa ser um array de aplicativos válido.');
+          }
+        } catch (err) {
+          showToast('Erro ao interpretar o arquivo JSON.');
+        }
+      };
+      reader.readAsText(file);
+    });
+
+    loadApps();
+  </script>
+</body>
+</html>
